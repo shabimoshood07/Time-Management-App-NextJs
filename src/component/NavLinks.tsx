@@ -45,14 +45,14 @@ const NavLinks = ({ session }: any) => {
         onClick={handleNavToggle}
       >
         {!session ? (
-          <button className="btn" onClick={() => signIn()}>
+          <Link href="/auth" className="btn text-center">
             Sign up
-          </button>
+          </Link>
         ) : (
           <>
             <Link
               href="/profile"
-              className="text-yellow-500 font-semibold flex items-center w-full justify-center gap-2"
+              className="text-yellow-500 font-semibold flex items-center w-full justify-center gap-2 tex"
             >
               Profile
               <Image
@@ -74,12 +74,12 @@ const NavLinks = ({ session }: any) => {
 
       <div className="hidden sm:flex ">
         {!session ? (
-          <button
-          className="btn !bg-slate-200 !text-slate-950 !font-bold w-[180px] hover:!bg-yellow-500 duration-500"
-            onClick={() => signIn()}
+          <Link
+            href="/auth"
+            className="btn !bg-slate-200 !text-slate-950 !font-bold w-[180px] hover:!bg-yellow-500 duration-500 text-center"
           >
             Sign up
-          </button>
+          </Link>
         ) : (
           <>
             <Link

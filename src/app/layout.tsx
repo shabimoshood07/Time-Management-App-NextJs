@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="overflow-hidden">
+      <body className="overflow-hidden bg-slate-200">
         <Provider session={session}>
           <Navbar />
           {children}
