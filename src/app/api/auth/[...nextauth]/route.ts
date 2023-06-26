@@ -2,7 +2,8 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials"
-
+import { connectDB } from "@/lib/connectDB";
+import User from "@/model/user";
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   session: {
@@ -21,10 +22,12 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        email: { label: "Username", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials, req) {
+        console.log("credentials from credential", credentials);
+
         // Add logic here to look up the user from the credentials supplied
         const user = { id: "1", name: "J Smith", email: "jsmith@example.com" }
 
@@ -37,11 +40,31 @@ export const authOptions: NextAuthOptions = {
 
           // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
         }
+
       }
     })
   ],
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
+      await connectDB()
+      try {
+        if (account && user) {
+          const userExists = await User.findOne({ email: user.email })
+          if (!userExists) {
+            const newUser = await User.create({ email: user?.email, name: user?.name, image: user?.image })
+          }
+        }
+      } catch (error) {
+        console.log("signIn error", error);
+
+      }
+
+      console.log("user", user);
+      console.log("account", account);
+      console.log("profile", profile);
+      console.log("email", email);
+      console.log("crecredentials", credentials);
+
       return true
     },
     // async redirect({ url, baseUrl }) {
@@ -60,7 +83,6 @@ export const authOptions: NextAuthOptions = {
 }
 
 
-// export default NextAuth(authOptions);
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST }
