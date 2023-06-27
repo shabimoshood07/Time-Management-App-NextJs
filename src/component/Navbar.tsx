@@ -4,9 +4,14 @@ import NavLinks from "./NavLinks";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Suspense } from "react";
+import { Session } from "next-auth";
 
 const Navbar = async () => {
   const session = await getServerSession(authOptions);
+  let parsed = null as Session | null;
+  if (session) {
+    parsed = JSON.parse(JSON.stringify(session));
+  }
   // console.log("session from nav", session);
 
   return (
@@ -19,7 +24,7 @@ const Navbar = async () => {
           TMA
         </Link>
         <Suspense fallback={<h1>Loading...</h1>}>
-          <NavLinks session={session} />
+          <NavLinks session={parsed} />
         </Suspense>
       </div>
     </nav>

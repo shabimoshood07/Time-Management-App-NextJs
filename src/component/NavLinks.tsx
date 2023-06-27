@@ -45,26 +45,28 @@ const NavLinks = ({ session }: any) => {
         onClick={handleNavToggle}
       >
         {!session ? (
-          <Link href="/auth" className="btn text-center">
+          <button onClick={() => signIn()} className="btn text-center">
             Sign up
-          </Link>
+          </button>
         ) : (
           <>
             <Link
               href="/profile"
-              className="text-yellow-500 font-semibold flex items-center w-full justify-center gap-2 tex"
+              className="text-yellow-500 font-semibold flex items-center w-full justify-center gap-2 my-4 text-xl"
             >
               Profile
-              <Image
-                src={session.user?.image}
-                alt={session.user.name}
-                height={50}
-                width={50}
-                className="rounded-full"
-              />
+              {session.user.image && (
+                <Image
+                  src={session.user?.image}
+                  alt={session.user.name}
+                  height={50}
+                  width={50}
+                  className="rounded-full"
+                />
+              )}
             </Link>
-            <button className="btn" onClick={() => signOut()}>
-              Sign out
+            <button className="btn !mt-4 !text-red-600 font-semibold !text-xl hover:!text-yellow-500 duration-500"  onClick={() => signOut()}>
+              Log out
             </button>
           </>
         )}
@@ -72,30 +74,39 @@ const NavLinks = ({ session }: any) => {
 
       {/* desktop nav */}
 
-      <div className="hidden sm:flex ">
+      <div className="hidden sm:flex items-center gap-3">
         {!session ? (
-          <Link
-            href="/auth"
+          <button
+            onClick={() => signIn()}
             className="btn !bg-slate-200 !text-slate-950 !font-bold w-[180px] hover:!bg-yellow-500 duration-500 text-center"
           >
             Sign up
-          </Link>
+          </button>
         ) : (
           <>
-            <Link
-              href="/profile"
-              className=" flex items-center w-full justify-center"
-            >
-              <Image
-                src={session.user?.image}
-                alt={session.user.name}
-                height={50}
-                width={50}
-                className="rounded-full hover:border-2 hover:border-yellow-500 duration-300 hover:scale-[1.2]"
-              />
-            </Link>
+            {session.user.image ? (
+              <Link
+                href="/profile"
+                className=" flex items-center w-full justify-center"
+              >
+                <Image
+                  src={session.user?.image}
+                  alt={session.user.email.slice(0, 4)}
+                  height={50}
+                  width={50}
+                  className="text-yellow-500 rounded-full hover:border-2 hover:border-yellow-500 duration-300 hover:scale-[1.2]"
+                />
+              </Link>
+            ) : (
+              <Link
+                href="/profile"
+                className="text-yellow-500 text-xl font-semibold"
+              >
+                Profile
+              </Link>
+            )}
             <button
-              className="btn !bg-slate-200 !text-slate-950 !font-bold w-[180px] hover:!bg-yellow-500 duration-500"
+              className="btn !bg-slate-200 !text-red-600 !font-bold w-[150px] hover:!bg-yellow-500  duration-500"
               onClick={() => signOut()}
             >
               Logout
