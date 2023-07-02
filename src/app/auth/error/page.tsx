@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 
-const Page = () => {
+export default function Error() {
   const searchParams = useSearchParams();
   const error = searchParams.get("error");
   const router = useRouter();
@@ -22,6 +22,4 @@ const Page = () => {
       </button>
     </div>
   );
-};
-
-export default Page;
+}
