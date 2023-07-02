@@ -1,6 +1,5 @@
 import GoogleButton from "@/component/GoogleButton";
 import GithubButton from "@/component/GithubButton";
-import { signIn } from "next-auth/react";
 import AuthForm from "@/component/AuthForm";
 const Auth = () => {
   return (

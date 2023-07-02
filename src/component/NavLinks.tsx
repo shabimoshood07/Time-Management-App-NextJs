@@ -20,7 +20,6 @@ const NavLinks = ({ session }: any) => {
     setShowNav(!showNav);
   };
 
-  console.log("session", session);
   return (
     <div>
       <svg
@@ -41,7 +40,7 @@ const NavLinks = ({ session }: any) => {
 
       {/* mobile nav */}
       <div
-        className={`${navToggle} duration-300 absolute top-[100%]  h-[calc(100vh-49.6px)] w-screen bg-slate-400 p-2 flex flex-col sm:hidden`}
+        className={`${navToggle} duration-300 absolute top-[100%] !z-10  h-[calc(100vh-49.6px)] w-screen bg-slate-400 p-2 flex flex-col sm:hidden`}
         onClick={handleNavToggle}
       >
         {!session ? (
@@ -73,7 +72,6 @@ const NavLinks = ({ session }: any) => {
       </div>
 
       {/* desktop nav */}
-
       <div className="hidden sm:flex items-center gap-3">
         {!session ? (
           <button

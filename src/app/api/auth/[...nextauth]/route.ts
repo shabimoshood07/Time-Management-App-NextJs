@@ -39,7 +39,7 @@ export const authOptions: NextAuthOptions = {
 
         if (userExists) {
           const isMatch = await bcrypt.compare(password, userExists.password)
-          if (!isMatch) throw new Error("Invalid Login Credentials")
+          if (!isMatch) { throw new Error("Invalid Login Credentials") }
           return userExists
         }
 
@@ -84,7 +84,7 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: "/auth",
-    // error: "/auth/error"
+    error: "/auth/error"
   }
 }
 
