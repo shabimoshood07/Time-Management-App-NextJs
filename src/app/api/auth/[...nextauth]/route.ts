@@ -70,8 +70,6 @@ export const authOptions: NextAuthOptions = {
       return baseUrl
     },
     async session({ session, user, token }) {
-      console.log("session from route", session);
-      console.log("user", user);
       await connectDB()
       const userInDB = await User.findOne({ email: session.user?.email })
       session.user.id = userInDB._id

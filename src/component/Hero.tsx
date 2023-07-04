@@ -1,21 +1,31 @@
 import React from "react";
-
-const Hero = () => {
+import Link from "next/link";
+import { Session } from "next-auth";
+const Hero = ({ session }: { session: Session }) => {
   return (
-    <div className="border border-red-400 h-[calc(100vh-48px)] relative -z-10">
-      <h1 className="text-center text-xl font-semibold text-slate-950 mt-4">
+    <div className=" h-[calc(100vh-48px)]  bg-[url('/hero.jpg')] bg-no-repeat bg-cover bg-center flex flex-col lg:flex-row items-center lg:justify-center pt-20 lg:pt-0">
+      <h1 className="text-center text-xl font-semibold text-slate-950 sm:text-2xl md:text-4xl xl:text-5xl 2xl:text-6xl  mx-auto w-[98%] md:w-[90%] max-w-[1200px] md:flex flex-col justify-center lg:text-left leading-loose lg:border-2 lg:p-8 lg:h-full lg:bg-slate-200">
         <span className="mr-1 ">Task Manager:</span>
         Elevate Your Job Management Experience, Achieve Your Goals!!
       </h1>
+      <div className="w-[98%] mx-auto  flex flex-col items-center justify-center gap-4 mt-3 lg:mt-0">
+        {session ? (
+          <>
+            <Link href="/addtask" className="btn !w-[95%] max-w-[500px] text-center !font-semibold text-xl lg:text-sxl md:!py-3">
+              Add Task
+            </Link>
+            <Link href="/showtask" className="btn !w-[95%] max-w-[500px] text-center !font-semibold text-xl lg:text-sxl md:!py-3">
+              Show All Task
+            </Link>
+          </>
+        ) : (
+          <Link href="auth" className="btn !w-[95%] max-w-[600px] text-center !mt-10 !font-semibold text-xl lg:text-sxl md:!py-4">
+            Sign In
+          </Link>
+        )}
+      </div>
     </div>
   );
 };
 
 export default Hero;
-
-{
-  /* <div className="absolute bg-yellow-500 h-[70%] w-[70%] rounded-2xl -right-[70px] top-[100px] rotate-45 -z-20 "></div> */
-}
-{
-  /* <div className="absolute xl:-top-24 xl:-right-1/2 -right-[50%] -top-[30%] bg-yellow-500 bg-repeat-round -z-10 w-full xl:h-screen h-[590px] overflow-hidden rotate-45"></div> */
-}

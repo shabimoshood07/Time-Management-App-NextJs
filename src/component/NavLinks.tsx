@@ -14,7 +14,7 @@ interface Session {
 
 const NavLinks = ({ session }: any) => {
   const [showNav, setShowNav] = useState(false);
-  const navToggle = showNav ? "right-0 " : "-right-[900px]";
+  const navToggle = showNav ? " w-screen p-2" : "!w-0 p-0";
 
   const handleNavToggle = () => {
     setShowNav(!showNav);
@@ -40,7 +40,7 @@ const NavLinks = ({ session }: any) => {
 
       {/* mobile nav */}
       <div
-        className={`${navToggle} duration-300 absolute top-[100%] !z-10  h-[calc(100vh-49.6px)] w-screen bg-slate-400 p-2 flex flex-col sm:hidden`}
+        className={`${navToggle} duration-300 fixed overflow-hidden top-[48px] !z-20  h-[calc(100vh-49.6px)]  bg-slate-400 flex flex-col sm:hidden right-0`}
         onClick={handleNavToggle}
       >
         {!session ? (
