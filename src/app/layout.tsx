@@ -16,11 +16,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className=" bg-slate-200 overflow-x-hidden">
+      <body className="bg-slate-200 overflow-x-hidden">
         <Provider session={session}>
-          <Navbar />
+          <Navbar />  
           {children}
-          <Toaster />
+          {/* <Toaster /> */}
         </Provider>
       </body>
     </html>
