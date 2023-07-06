@@ -6,7 +6,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Suspense } from "react";
 import { Session } from "next-auth";
 
-const Navbar = async () => {
+const Navbar = async (): Promise<JSX.Element> => {
   const session = await getServerSession(authOptions);
   let parsed = null as Session | null;
   if (session) {
@@ -30,4 +30,3 @@ const Navbar = async () => {
 };
 
 export default Navbar;
-

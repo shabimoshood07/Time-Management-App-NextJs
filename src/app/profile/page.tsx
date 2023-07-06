@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const page = () => {
-  return (
-    <div>signIn</div>
-  )
-}
+  return <div className=" h-[700px] ">signIn</div>;
+};
 
-export default page
+export default page;

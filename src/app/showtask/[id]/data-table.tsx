@@ -33,6 +33,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { DataTablePagination } from "@/components/ui/table-pagination";
+import DeleteTaskButton from "@/component/DeleteTaskButton";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -73,14 +74,6 @@ export function DataTable<TData, TValue>({
     <div>
       {/* Filter */}
       <div className="flex items-center py-4 w-[98%] md:w-[90%] mx-auto max-w-[1200px]">
-        <input
-          placeholder="Filter by description..."
-          value={table.getColumn("description")?.getFilterValue() as string}
-          onChange={(event: any) =>
-            table.getColumn("description")?.setFilterValue(event.target.value)
-          }
-          className="w-1/2 p-1 rounded-sm text-slate-950"
-        />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
@@ -177,11 +170,6 @@ export function DataTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
-
-      {/* Pagination */}
-      <div className="flex items-center justify-end space-x-2 py-4 w-[98%] md:w-[90%] mx-auto max-w-[1200px]">
-        <DataTablePagination table={table} />
-      </div>
     </div>
   );
 }
