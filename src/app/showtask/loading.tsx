@@ -34,7 +34,7 @@ export function DataTable<TData, TValue>() {
   return (
     <div className="mt-2">
       <div className="w-[98%] md:w-[90%] mx-auto max-w-[1200px]">
-        <BackButton />
+        <BackButton page="loading" />
         <h1 className="w-[98%] md:w-[90%] mx-auto max-w-[1200px] text-xl sm:text-2xl lg:text-3xl font-semibold text-center text-slate-950 mb-4 tracking-wide">
           All Task
         </h1>
