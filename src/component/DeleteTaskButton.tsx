@@ -18,7 +18,6 @@ const DeleteTaskButton = ({ id }: { id: string }) => {
           description: "Task deleted successfully",
         });
       }
-      //   redirect("/showtask");
       router.push("/showtask");
     } catch (error: any) {
       console.log(error);

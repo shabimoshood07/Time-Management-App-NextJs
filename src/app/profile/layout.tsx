@@ -6,7 +6,7 @@ export default function ProfileLayout({
   children: React.ReactNode | Promise<JSX.Element>;
 }) {
   return (
-    <div className="">
+    <div className="relative -z-[6] flex justify-end ">
       <ProfileSidebar />
       {children}
     </div>

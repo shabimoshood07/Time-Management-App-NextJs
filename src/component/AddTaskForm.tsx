@@ -8,15 +8,23 @@ const AddTaskForm = ({ addTask }: any) => {
   const form = useRef<HTMLFormElement>(null);
 
   const handleSubmit = async (formdata: FormData) => {
-    const { newTask } = await addTask(formdata);
-    if (newTask) {
-      toast({
-        title: "Successfull",
-        description: "Task addedd succefully",
-      });
-      if (form.current) {
-        form.current.reset();
+    try {
+      const { newTask } = await addTask(formdata);
+      if (newTask) {
+        toast({
+          title: "Successfull",
+          description: "Task addedd succefully",
+        });
+        if (form.current) {
+          form.current.reset();
+        }
       }
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error.message,
+      });
     }
   };
   return (

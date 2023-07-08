@@ -11,13 +11,14 @@ export default function RootLayout({
   children,
   session,
 }: {
-  children: React.ReactNode | Promise<JSX.Element>;
+  children: React.ReactNode;
   session: any;
 }) {
   return (
     <html lang="en">
-      <body className="bg-slate-200 overflow-x-hidden">
+      <body className="bg-slate-200  relative -z-[6]">
         <Provider session={session}>
+          {/* @ts-expect-error Server Component */}
           <Navbar />
           {children}
           <Toaster />

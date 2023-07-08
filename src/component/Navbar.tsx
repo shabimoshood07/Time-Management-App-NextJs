@@ -1,4 +1,3 @@
-import { signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 import NavLinks from "./NavLinks";
 import { getServerSession } from "next-auth/next";
