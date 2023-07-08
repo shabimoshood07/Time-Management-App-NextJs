@@ -61,28 +61,31 @@ export const handleDeleteTask = async (
   }
 };
 
-export const addPreferredWorkingHour = async (formdata: FormData) => {
-  await connectDB();
-  const session = await getServerSession(authOptions);
-  if (!session) redirect("/auth/signin");
-  const user = await User.findOne({ _id: session.user.id });
-  if (!user) throw new Error("No User found");
-
-  const day = formdata.get("day");
-  const startTime = formdata.get("startTime");
-  const endTime = formdata.get("endTime");
-
-  var startDate = new Date("1970-01-01T" + startTime);
-  var endDate = new Date("1970-01-01T" + endTime);
-
-  if (endDate < startDate) {
-    throw new Error("End time must be after start time");
-  }
-  const data = { day, startTime, endTime };
-
+export const addPreferredWorkingHour = async (
+  formdata: FormData,
+  id: string
+) => {
   try {
+    await connectDB();
+    // const session = await getServerSession(authOptions);
+    // if (!session) redirect("/auth/signin");
+    const user = await User.findOne({ _id: id });
+    if (!user) throw new Error("No User found");
+
+    const day = formdata.get("day");
+    const startTime = formdata.get("startTime");
+    const endTime = formdata.get("endTime");
+
+    var startDate = new Date("1970-01-01T" + startTime);
+    var endDate = new Date("1970-01-01T" + endTime);
+
+    if (endDate < startDate) {
+      throw new Error("End time must be after start time");
+    }
+    const data = { day, startTime, endTime };
+
     await User.findOneAndUpdate(
-      { _id: session.user.id },
+      { _id: id },
       { $push: { preferredWorkingHours: data } }
     );
     revalidatePath("/profile/settings");

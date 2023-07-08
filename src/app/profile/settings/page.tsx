@@ -6,9 +6,6 @@ import { addPreferredWorkingHour } from "@/lib/actions";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
-import { Suspense } from "react";
-import Loading from "../loading";
-
 const Settings = async () => {
   const session = await getServerSession(authOptions);
   if (!session) redirect("/auth");
@@ -27,6 +24,7 @@ const Settings = async () => {
         <div className="flex justify-between items-start xl:gap-8 flex-wrap p-2 gap-4">
           <PreferredWorkingHourForm
             addPreferredWorkingHour={addPreferredWorkingHour}
+            id={session?.user.id}
           />
           <PreferredWorkingHourTable session={session} />
         </div>

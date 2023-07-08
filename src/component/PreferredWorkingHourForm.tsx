@@ -8,10 +8,15 @@ import {
 } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
 
-const PreferredWorkingHourForm = ({ addPreferredWorkingHour }: any) => {
+type Props = {
+  addPreferredWorkingHour: any;
+  id: String;
+};
+
+const PreferredWorkingHourForm = ({ addPreferredWorkingHour, id }: Props) => {
   const handleSubmit = async (formdata: FormData) => {
     try {
-      const res = await addPreferredWorkingHour(formdata);
+      const res = await addPreferredWorkingHour(formdata, id);
       toast({
         title: "Success",
         description: res.message,
@@ -21,18 +26,14 @@ const PreferredWorkingHourForm = ({ addPreferredWorkingHour }: any) => {
       toast({
         variant: "destructive",
         title: "Error",
-        description: error.message,
+        description: error.message || "something went wrong",
       });
     }
   };
   return (
     <div className=" w-full md:flex-1">
       <h1 className="mb-2">Set Preffered working hour</h1>
-      <form
-        className="space-y-4 "
-        autoComplete="off"
-        action={handleSubmit}
-      >
+      <form className="space-y-4 " autoComplete="off" action={handleSubmit}>
         <div>
           <Select name="day">
             <SelectTrigger className="w-[180px]  rounded-md py-1.5 text-slate-950 shadow-sm ring-1 ring-inset ring-slate-950 placeholder:text-slate-950 focus:ring-2 focus:ring-inset focus:ring-yellow-500 sm:text-sm sm:leading-6">
