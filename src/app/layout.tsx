@@ -18,7 +18,6 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-slate-200  relative -z-[6]">
         <Provider session={session}>
-          {/* @ts-expect-error Server Component */}
           <Navbar />
           {children}
           <Toaster />
