@@ -19,7 +19,6 @@ const Settings = async () => {
     sm:w-[calc(100vw-144px)]"
     >
       <div className="w-[98%] md:w-[90%] mx-auto max-w-[1200px] mt-2">
-        {/* @ts-expect-error Server Component */}
         <ProfilePageHeading />
         <h1 className="w-[98%] md:w-[90%] mx-auto max-w-[1200px] text-xl sm:text-xl lg:text-3xl font-semibold text-center text-slate-950 mb-4 tracking-wide">
           Settings
@@ -29,7 +28,6 @@ const Settings = async () => {
           <PreferredWorkingHourForm
             addPreferredWorkingHour={addPreferredWorkingHour}
           />
-          {/* @ts-expect-error Server Component */}
           <PreferredWorkingHourTable session={session} />
         </div>
       </div>
