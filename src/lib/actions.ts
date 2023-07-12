@@ -4,8 +4,13 @@ import Task from "@/model/task";
 import { Session, getServerSession } from "next-auth";
 import { connectDB } from "./connectDB";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import User from "@/model/user";
+
+type PWH = {
+  day: string;
+  startTime: string;
+  endTime: string;
+};
 
 export const getSession = async () => {
   await connectDB();
@@ -66,12 +71,6 @@ export const addPreferredWorkingHour = async (
   id: string
 ) => {
   try {
-    await connectDB();
-    // const session = await getServerSession(authOptions);
-    // if (!session) redirect("/auth/signin");
-    const user = await User.findOne({ _id: id });
-    if (!user) throw new Error("No User found");
-
     const day = formdata.get("day");
     const startTime = formdata.get("startTime");
     const endTime = formdata.get("endTime");
@@ -82,6 +81,32 @@ export const addPreferredWorkingHour = async (
     if (endDate < startDate) {
       throw new Error("End time must be after start time");
     }
+
+    await connectDB();
+    const user = await User.findOne({ _id: id });
+    if (!user) throw new Error("No User found");
+    const dayAlreadyExists = user.preferredWorkingHours.find(
+      (PWH: PWH) => PWH.day === day
+    );
+
+    if (dayAlreadyExists) {
+      const updatedWorkingHours = user.preferredWorkingHours.map((PWH: PWH) => {
+        if (PWH.day === day) {
+          return { ...PWH, startTime, endTime };
+        }
+        return PWH;
+      });
+
+      await User.findOneAndUpdate(
+        { _id: id },
+        { preferredWorkingHours: updatedWorkingHours }
+      );
+      revalidatePath("/profile/settings");
+      return JSON.parse(
+        JSON.stringify({ message: "Settings updated successfully" })
+      );
+    }
+
     const data = { day, startTime, endTime };
 
     await User.findOneAndUpdate(
