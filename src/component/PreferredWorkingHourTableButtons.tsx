@@ -57,10 +57,9 @@ const PreferredWorkingHourTableButtons = ({
             </svg>
           }
           title="Edit Setting"
-          children={
-            <EditPreferredWorkingHourForm day={day} userId={data?.user.id} />
-          }
-        />
+        >
+          <EditPreferredWorkingHourForm day={day} userId={data?.user.id} />
+        </DialogComponent>
       )}
 
       <AlertDialogComponent

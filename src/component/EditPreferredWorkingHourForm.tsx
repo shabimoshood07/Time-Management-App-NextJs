@@ -11,7 +11,6 @@ type Props = {
   userId: string;
 };
 const EditPreferredWorkingHourForm = ({ day, userId }: Props) => {
-  const router = useRouter();
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
 
