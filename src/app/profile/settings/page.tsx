@@ -2,14 +2,13 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import PreferredWorkingHourForm from "@/component/PreferredWorkingHourForm";
 import PreferredWorkingHourTable from "@/component/PreferredWorkingHourTable";
 import ProfilePageHeading from "@/component/ProfilePageHeading";
-import { addPreferredWorkingHour } from "@/lib/actions";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
 const Settings = async () => {
   const session = await getServerSession(authOptions);
   if (!session) redirect("/auth");
-
+  const userId: string | undefined = session?.user.id;
   return (
     <div
       className="w-[calc(100vw-50px)] 2xl:w-[calc(100vw-500px)] 
@@ -22,10 +21,7 @@ const Settings = async () => {
         </h1>
 
         <div className="flex justify-between items-start xl:gap-8 flex-wrap p-2 gap-4">
-          <PreferredWorkingHourForm
-            addPreferredWorkingHour={addPreferredWorkingHour}
-            id={session?.user.id}
-          />
+          <PreferredWorkingHourForm userId={userId} />
           <PreferredWorkingHourTable session={session} />
         </div>
       </div>

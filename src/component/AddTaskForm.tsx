@@ -2,39 +2,18 @@
 import BackButton from "./BackButton";
 import { useToast } from "@/components/ui/use-toast";
 import { useRef, useState, useEffect } from "react";
-import AlertDialogComponent from "./AlertDialog";
+
 
 const AddTaskForm = ({ addTask }: any) => {
   const { toast } = useToast();
-  const [confirmation, setConfirmation] = useState(false);
-
   const form = useRef<HTMLFormElement>(null);
-
-  // const checkFormFields = () => {
-  //   if (form.current) {
-  //     const formData = new FormData(form.current);
-
-  //     for (let value of formData.values()) {
-  //       if (value === "") {
-  //         return true;
-  //       }
-  //     }
-  //     return false;
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   console.log("called");
-
-  //   checkFormFields();
-  // }, [form.current.]);
 
   const handleSubmit = async (formData: FormData) => {
     try {
       const { newTask } = await addTask(formData);
       if (newTask) {
         toast({
-          title: "Successfull",
+          title: "successful",
           description: "Task addedd succefully",
         });
         if (form.current) {

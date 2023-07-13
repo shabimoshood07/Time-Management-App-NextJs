@@ -13,17 +13,10 @@ export type Tasks = {
 export const columns: ColumnDef<Tasks>[] = [
   {
     accessorKey: "day",
-
-    header: ({ column }) => {
-      return (
-        <button
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="flex items-center"
-        >
-          Day
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </button>
-      );
+    header: () => <h1 className="text-left">Day</h1>,
+    cell: ({ row }) => {
+      const data = row.original;
+      return <h1 className="text-left capitalize">{data.day}</h1>;
     },
   },
 

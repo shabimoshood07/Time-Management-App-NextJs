@@ -44,7 +44,7 @@ export const addTask = async (formdata: FormData) => {
     revalidatePath("/showtask");
     return JSON.parse(JSON.stringify({ newTask }));
   } catch (error: any) {
-    throw new Error(error.message || "Internal server error", {});
+    throw new Error(error.message || "Internal server error");
   }
 };
 
@@ -68,7 +68,7 @@ export const handleDeleteTask = async (
 
 export const addPreferredWorkingHour = async (
   formdata: FormData,
-  id: string
+  userId: string
 ) => {
   try {
     const day = formdata.get("day");
@@ -83,8 +83,10 @@ export const addPreferredWorkingHour = async (
     }
 
     await connectDB();
-    const user = await User.findOne({ _id: id });
+    const user = await User.findOne({ _id: userId });
+
     if (!user) throw new Error("No User found");
+
     const dayAlreadyExists = user.preferredWorkingHours.find(
       (PWH: PWH) => PWH.day === day
     );
@@ -98,7 +100,7 @@ export const addPreferredWorkingHour = async (
       });
 
       await User.findOneAndUpdate(
-        { _id: id },
+        { _id: userId },
         { preferredWorkingHours: updatedWorkingHours }
       );
       revalidatePath("/profile/settings");
@@ -110,7 +112,7 @@ export const addPreferredWorkingHour = async (
     const data = { day, startTime, endTime };
 
     await User.findOneAndUpdate(
-      { _id: id },
+      { _id: userId },
       { $push: { preferredWorkingHours: data } }
     );
     revalidatePath("/profile/settings");
@@ -126,6 +128,29 @@ export const getUserPreferredWorkingHour = async (session: Session) => {
   try {
     const user = await User.findOne({ _id: session.user.id });
     const preferredWorkingHour = user.preferredWorkingHours;
+
+    if (preferredWorkingHour.length > 0) {
+      const dayOrder = [
+        "sunday",
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+      ];
+
+      preferredWorkingHour.sort((a: { day: string }, b: { day: string }) => {
+        const dayA = a.day.toLowerCase();
+        const dayB = b.day.toLowerCase();
+
+        const indexA = dayOrder.indexOf(dayA);
+        const indexB = dayOrder.indexOf(dayB);
+
+        return indexA - indexB;
+      });
+    }
+
     return JSON.parse(JSON.stringify(preferredWorkingHour));
   } catch (error: any) {
     throw new Error(error.message || "Something went wrong");
@@ -146,5 +171,61 @@ export const deletePreferredWorkingHour = async (day: string, id: string) => {
     return JSON.parse(JSON.stringify(preferredWorkingHour));
   } catch (error: any) {
     throw new Error(error.message || "Something went wrong");
+  }
+};
+
+export const getPreferredWorkingHour = async (day: string, userId: string) => {
+  try {
+    const user = await User.findOne({ _id: userId });
+
+    const data = user.preferredWorkingHours.filter(
+      (PHW: PWH) => PHW.day === day
+    );
+
+    console.log(data);
+
+    return JSON.parse(JSON.stringify(data[0]));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updatePreferredWorkingHour = async (
+  formdata: FormData,
+  userId: string
+) => {
+  try {
+    const day = formdata.get("day");
+    const startTime = formdata.get("startTime");
+    const endTime = formdata.get("endTime");
+
+    var startDate = new Date("1970-01-01T" + startTime);
+    var endDate = new Date("1970-01-01T" + endTime);
+
+    if (endDate < startDate) {
+      throw new Error("End time must be after start time");
+    }
+    await connectDB();
+    const user = await User.findOne({ _id: userId });
+
+    if (!user) throw new Error("No User found");
+
+    const updatedWorkingHours = user.preferredWorkingHours.map((PWH: PWH) => {
+      if (PWH.day === day) {
+        return { ...PWH, startTime, endTime };
+      }
+      return PWH;
+    });
+
+    await User.findOneAndUpdate(
+      { _id: userId },
+      { preferredWorkingHours: updatedWorkingHours }
+    );
+    revalidatePath("/profile/settings");
+    return JSON.parse(
+      JSON.stringify({ message: "Settings updated successfully" })
+    );
+  } catch (error: any) {
+    throw new Error(error.message || "Internal server error");
   }
 };
