@@ -9,7 +9,7 @@ export default function Error() {
   const router = useRouter();
 
   return (
-    <div className="border-4 border-red-500 w-full flex flex-col items-center justify-center h-[400px] gap-5 py-5 px-2">
+    <div className=" w-full flex flex-col items-center justify-center h-[400px] gap-5 py-5 px-2">
       <h1 className="text-3xl text-slate-950">Error!!</h1>
       <h2 className="text-slate-950 text-2xl text-center font-bold">
         {error || "Something went wrong"}

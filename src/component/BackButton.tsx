@@ -6,11 +6,12 @@ const BackButton = ({ page }: { page: string }) => {
   return (
     <button
       className="btn !float-none !p-1 text-[15px]  lg:text-xl !px-2 hover:shadow-xl"
-      onClick={
-        page === "showtask" || page === "addtask"
-          ? () => router.push("/")
-          : () => router.back()
-      }
+      onClick={() => router.back()}
+      // onClick={
+      //   page === "showtask" || page === "addtask"
+      //     ? () => router.push("/")
+      //     : () => router.back()
+      // }
     >
       Back
     </button>

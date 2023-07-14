@@ -29,7 +29,7 @@ const Dashboard = async () => {
 
   return (
     <div
-      className="w-[calc(100vw-50px)] 2xl:w-[calc(100vw-500px)] 
+      className="w-[calc(100vw-50px)] 2xl:w-[calc(100vw-380px)] 
     sm:w-[calc(100vw-144px)]"
     >
       <div className="w-[98%] md:w-[90%] mx-auto max-w-[1200px] mt-2">
