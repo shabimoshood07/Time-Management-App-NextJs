@@ -30,10 +30,12 @@ const PreferredWorkingHourForm = ({ userId }: Props) => {
         form.current.reset();
       }
     } catch (error: any) {
+      console.log(error);
+
       toast({
         variant: "destructive",
         title: "Error",
-        description: error.message || "something went wrong",
+        description: error.error || "something went wrong",
       });
     }
     setLoading(false);
