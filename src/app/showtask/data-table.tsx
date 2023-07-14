@@ -40,13 +40,24 @@ type PWH = {
   endTime: string;
 };
 
-interface DataTableProps<TData, TValue> {
+type Task = {
+  _id: string;
+  description: string;
+  startTime: string;
+  endTime: string;
+  date: string;
+  duration: Number;
+  day?: string;
+  user: string;
+};
+
+interface DataTableProps<TData extends Task | PWH, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   preferredWorkingHours: PWH[];
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends Task | PWH, TValue>({
   columns,
   data,
   preferredWorkingHours,
