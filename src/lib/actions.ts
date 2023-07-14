@@ -124,6 +124,7 @@ export const addPreferredWorkingHour = async (
     // );
 
     // return new Error(error);
+    error.digest("error msg")
     throw new Error(error.message || "Something went wrong");
   }
 };

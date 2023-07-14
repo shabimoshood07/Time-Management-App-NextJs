@@ -35,7 +35,7 @@ const PreferredWorkingHourForm = ({ userId }: Props) => {
       toast({
         variant: "destructive",
         title: "Error",
-        description: error.message || "something went wrong",
+        description: "End time must be after start time",
       });
     }
     setLoading(false);
