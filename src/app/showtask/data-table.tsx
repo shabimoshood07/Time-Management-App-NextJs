@@ -51,13 +51,13 @@ type Task = {
   user: string;
 };
 
-interface DataTableProps<TData extends Task | PWH, TValue> {
+interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   preferredWorkingHours: PWH[];
 }
 
-export function DataTable<TData extends Task | PWH, TValue>({
+export function DataTable<TData, TValue>({
   columns,
   data,
   preferredWorkingHours,
@@ -169,7 +169,7 @@ export function DataTable<TData extends Task | PWH, TValue>({
         </TableHeader>
         <TableBody>
           {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => {
+            table.getRowModel().rows.map((row: any) => {
               let match = false;
               const matchingPreferredWorkingHour: PWH | undefined =
                 preferredWorkingHours.find(
@@ -190,7 +190,7 @@ export function DataTable<TData extends Task | PWH, TValue>({
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
-                  {row.getVisibleCells().map((cell) => (
+                  {row.getVisibleCells().map((cell: any) => (
                     <TableCell
                       key={cell.id}
                       className={`${color} border border-yellow-500 text-center`}

@@ -12,6 +12,11 @@ export type Tasks = {
   date: string;
   duration: Number;
 };
+type PWH = {
+  day: string;
+  startTime: string;
+  endTime: string;
+};
 
 export const columns: ColumnDef<Tasks>[] = [
   {
