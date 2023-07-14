@@ -34,20 +34,28 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { DataTablePagination } from "@/components/ui/table-pagination";
 
+type PWH = {
+  day: string;
+  startTime: string;
+  endTime: string;
+};
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  preferredWorkingHours: PWH[];
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  preferredWorkingHours,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-
   const [rowSelection, setRowSelection] = useState({});
+
   const table = useReactTable({
     data,
     columns,
@@ -126,7 +134,7 @@ export function DataTable<TData, TValue>({
         </DropdownMenu>
       </div>
 
-      <Table className=" w-[98%] md:w-[90%] mx-auto max-w-[1200px] min-w-[600px] overflow-x-scroll shadow-[0_5px_15px_rgba(0,0,0.35)] mb-4" >
+      <Table className=" w-[98%] md:w-[90%] mx-auto max-w-[1200px] min-w-[600px] overflow-x-scroll shadow-[0_5px_15px_rgba(0,0,0.35)] mb-4">
         <TableHeader className="">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
@@ -150,28 +158,48 @@ export function DataTable<TData, TValue>({
         </TableHeader>
         <TableBody>
           {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell
-                    key={cell.id}
-                    className=" border border-yellow-500 text-center"
-                  >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))
+            table.getRowModel().rows.map((row) => {
+              let match = false;
+              const matchingPreferredWorkingHour: PWH | undefined =
+                preferredWorkingHours.find(
+                  (hour) => hour.day === row.original.day
+                );
+              if (
+                matchingPreferredWorkingHour &&
+                row.original.startTime >=
+                  matchingPreferredWorkingHour.startTime &&
+                row.original.endTime <= matchingPreferredWorkingHour.endTime
+              ) {
+                match = true;
+              }
+              let color = match ? "text-green-500" : "text-red-500";
+
+              return (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell
+                      key={cell.id}
+                      className={`${color} border border-yellow-500 text-center`}
+                    >
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              );
+            })
           ) : (
             <TableRow>
               <TableCell
                 colSpan={columns.length}
                 className="h-24 text-center border border-yellow-500"
               >
-                No results.
+                No Task Added
               </TableCell>
             </TableRow>
           )}

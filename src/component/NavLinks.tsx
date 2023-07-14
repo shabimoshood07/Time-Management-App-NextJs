@@ -50,7 +50,7 @@ const NavLinks = ({ session }: any) => {
         ) : (
           <>
             <Link
-              href="/profile"
+              href="/profile/dashboard"
               className="text-yellow-500 font-semibold flex items-center w-full justify-center gap-2 my-4 text-xl"
             >
               Profile
@@ -84,7 +84,7 @@ const NavLinks = ({ session }: any) => {
           <>
             {session.user.image ? (
               <Link
-                href="/profile"
+                href="/profile/dashboard"
                 className=" flex items-center w-full justify-center"
               >
                 <Image
@@ -97,7 +97,7 @@ const NavLinks = ({ session }: any) => {
               </Link>
             ) : (
               <Link
-                href="/profile"
+              href="/profile/dashboard"
                 className="text-yellow-500 text-xl font-semibold"
               >
                 Profile

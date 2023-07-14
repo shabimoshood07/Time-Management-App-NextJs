@@ -25,7 +25,7 @@ const AlertDialogComponent = ({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>{Button}</AlertDialogTrigger>
-      <AlertDialogContent className="bg-slate-950">
+      <AlertDialogContent className="bg-slate-950 w-[94%]">
         <AlertDialogHeader>
           <AlertDialogTitle  className="text-slate-200">Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription  className="text-slate-200">{warning}</AlertDialogDescription>

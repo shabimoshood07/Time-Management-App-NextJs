@@ -26,7 +26,6 @@ import {
 
 import { useState } from "react";
 
-
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -64,7 +63,9 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="w-full md:flex-1">
-      <h1 className="text-slate-950 mt-2  md:mb-2 md:mt-0">Preferred working hours</h1>
+      <h1 className="text-slate-950 mt-2  md:mb-2 md:mt-0">
+        Preferred working hours
+      </h1>
       <Table className=" w-full min-w-[500px] overflow-x-scroll shadow-[0_5px_15px_rgba(0,0,0.35)] mb-4">
         <TableHeader className="">
           {table.getHeaderGroups().map((headerGroup) => (
@@ -110,7 +111,7 @@ export function DataTable<TData, TValue>({
                 colSpan={columns.length}
                 className="h-24 text-center border border-yellow-500"
               >
-                No results.
+                No Settings Added
               </TableCell>
             </TableRow>
           )}

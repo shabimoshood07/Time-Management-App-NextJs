@@ -1,11 +1,9 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import { Checkbox } from "@/components/ui/checkbox";
+import { ArrowUpDown } from "lucide-react";
 import Link from "next/link";
 import DeleteTaskButton from "@/component/DeleteTaskButton";
-import { handleDeleteTask } from "@/lib/actions";
 export type Tasks = {
   _id: string;
   description: string;
@@ -30,10 +28,18 @@ export const columns: ColumnDef<Tasks>[] = [
         </button>
       );
     },
+    cell: ({ row }) => {
+      const date = row.getValue("date") as string;
+      return <p className="tex-left w-[100px]">{date}</p>;
+    },
+  },
+  {
+    accessorKey: "day",
+    header: () => <h1 className="text-center">Day</h1>,
   },
   {
     accessorKey: "description",
-    header: () => <h1>Description</h1>,
+    header: () => <h1 className="text-center">Description</h1>,
     cell: ({ row }) => {
       const description = row.getValue("description") as string;
       return (

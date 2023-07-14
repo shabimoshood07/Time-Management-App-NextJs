@@ -164,7 +164,7 @@ export function DataTable<TData, TValue>({
                 colSpan={columns.length}
                 className="h-24 text-center border border-yellow-500"
               >
-                No results.
+                No Task Added
               </TableCell>
             </TableRow>
           )}

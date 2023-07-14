@@ -28,9 +28,27 @@ const taskSchema = new mongoose.Schema(
       ref: "User",
     },
   },
-  { timestamps: true }
+  {
+    toJSON: {
+      virtuals: true,
+    },
+    timestamps: true,
+  }
 );
 
+taskSchema.virtual("day").get(function () {
+  const dayOrder = [
+    "sunday",
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+  ];
+  let day: number = new Date(this.date).getDay();
+  return dayOrder[day];
+});
 const Task = models.Task || mongoose.model("Task", taskSchema);
 
 export default Task;

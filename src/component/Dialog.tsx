@@ -20,7 +20,7 @@ const DialogComponent = ({ button, children, title }: Props) => {
   return (
     <Dialog>
       <DialogTrigger>{button}</DialogTrigger>
-      <DialogContent className="bg-slate-950">
+      <DialogContent className="bg-slate-950 w-[94%]">
         <DialogHeader className="text-slate-200">
           <DialogTitle className="text-slate-200">{title}</DialogTitle>
           <DialogDescription></DialogDescription>

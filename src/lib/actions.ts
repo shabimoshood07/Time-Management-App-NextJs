@@ -61,8 +61,7 @@ export const handleDeleteTask = async (
     revalidatePath("/showtask");
     return JSON.parse(JSON.stringify({ message: "task deleted successfully" }));
   } catch (error: any) {
-    console.log(error);
-    return JSON.parse(JSON.stringify(error.message));
+    throw new Error(error.message || "Something went wrong");
   }
 };
 
@@ -181,12 +180,9 @@ export const getPreferredWorkingHour = async (day: string, userId: string) => {
     const data = user.preferredWorkingHours.filter(
       (PHW: PWH) => PHW.day === day
     );
-
-    console.log(data);
-
     return JSON.parse(JSON.stringify(data[0]));
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    throw new Error(error.message || "Something went wrong");
   }
 };
 
