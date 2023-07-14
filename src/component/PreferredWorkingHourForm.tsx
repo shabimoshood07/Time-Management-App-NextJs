@@ -35,7 +35,7 @@ const PreferredWorkingHourForm = ({ userId }: Props) => {
       toast({
         variant: "destructive",
         title: "Error",
-        description: error.error || "something went wrong",
+        description: error.message || "something went wrong",
       });
     }
     setLoading(false);

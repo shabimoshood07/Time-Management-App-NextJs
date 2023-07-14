@@ -119,6 +119,11 @@ export const addPreferredWorkingHour = async (
       JSON.stringify({ message: "Settings added successfully" })
     );
   } catch (error: any) {
+    // throw new Error(
+    //   JSON.parse(JSON.stringify(error.message || "Something went wrong"))
+    // );
+
+    // return new Error(error);
     throw new Error(error.message || "Something went wrong");
   }
 };
