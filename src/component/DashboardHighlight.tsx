@@ -29,7 +29,7 @@ const DashboardHighlight = async ({ tasks }: { tasks: Tasks[] }) => {
           />
         </svg>
         <h1 className="text-xl font-bold text-slate-200 tracking-tighter">
-          {duration} Hr
+          {duration.toFixed(2)} Hr
         </h1>
         <h1 className="tracking-tighter text-center text-slate-200">
           Total work duration
