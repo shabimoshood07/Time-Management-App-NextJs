@@ -59,12 +59,12 @@ const DashboardHighlight = async ({ tasks }: { tasks: Tasks[] }) => {
         </h1>
       </div>
 
-      <div className="w-[80%] sm:w-full mx-auto flex flex-col gap-2 justify-center items-center  p-4 rounded-xl bg-slate-500 col-span-4 md:col-span-2 lg:col-span-1">
+      <div className="w-[80%] sm:w-full mx-auto flex flex-col gap-2 justify-center items-center  p-4 rounded-xl col-span-4 md:col-span-2 lg:col-span-1  bg-gradient-to-r from-slate-950 to-yellow-500 ">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className="w-9 h-9 rounded-full text-yellow-500 bg-slate-950 p-1"
+          className="w-9 h-9 rounded-full text-slate-950 bg-slate-200 p-1"
         >
           <path
             fillRule="evenodd"
@@ -72,19 +72,19 @@ const DashboardHighlight = async ({ tasks }: { tasks: Tasks[] }) => {
             clipRule="evenodd"
           />
         </svg>
-
-        <h1 className="text-xl font-bold text-slate-950 tracking-tighter">
+        <h1 className="text-xl font-bold text-slate-200 tracking-tighter">
           {tasks.length === 0 ? 0 : (duration / tasks.length).toFixed(2)} Hr/day
         </h1>
-        <h1 className="tracking-tighter text-center">Average work duration</h1>
+        <h1 className="tracking-tighter text-center text-slate-200">
+          Average work duration
+        </h1>
       </div>
-
-      <div className="w-[80%] sm:w-full mx-auto flex flex-col gap-2 justify-center items-center  p-4 rounded-xl bg-slate-500 col-span-4 md:col-span-2 lg:col-span-1">
+      <div className="w-[80%] sm:w-full mx-auto flex flex-col gap-2 justify-center items-center  p-4 rounded-xl col-span-4 md:col-span-2 lg:col-span-1  bg-gradient-to-r from-slate-950 to-yellow-500 ">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className="w-9 h-9 rounded-full text-yellow-500 bg-slate-950 p-1"
+          className="w-9 h-9 rounded-full text-slate-950 bg-slate-200 p-1"
         >
           <path
             fillRule="evenodd"
@@ -92,11 +92,12 @@ const DashboardHighlight = async ({ tasks }: { tasks: Tasks[] }) => {
             clipRule="evenodd"
           />
         </svg>
-
-        <h1 className="text-xl font-bold text-slate-950 tracking-tighter">
+        <h1 className="text-xl font-bold text-slate-200 tracking-tighter">
           Hr
         </h1>
-        <h1 className="tracking-tighter text-center">Highest work duration</h1>
+        <h1 className="tracking-tighter text-center text-slate-200">
+          Highest work duration
+        </h1>
       </div>
     </div>
   );

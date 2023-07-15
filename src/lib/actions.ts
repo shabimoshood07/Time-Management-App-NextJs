@@ -48,6 +48,34 @@ export const addTask = async (formdata: FormData) => {
   }
 };
 
+export const getTask = async (taskId: string, userId: string) => {
+  const task = await Task.findOne({ _id: taskId, user: userId });
+  return JSON.parse(JSON.stringify({ task }));
+};
+
+export const updateTask = async (taskId: string, formdata: FormData) => {
+  try {
+    const description = formdata.get("description");
+    const date = formdata.get("date");
+    const startTime = formdata.get("startTime");
+    const endTime = formdata.get("endTime");
+
+    const task = await Task.findOneAndUpdate(
+      { _id: taskId },
+      {
+        description,
+        date,
+        startTime,
+        endTime,
+      }
+    );
+    revalidatePath("/showtask")
+    return JSON.parse(JSON.stringify({ message: "Task updated" }));
+  } catch (error: any) {
+    throw new Error("Something went wrong");
+  }
+};
+
 export const handleDeleteTask = async (
   id: string,
   user: string | undefined

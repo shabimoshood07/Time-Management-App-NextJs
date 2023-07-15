@@ -1,26 +1,24 @@
 "use client";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "@/components/ui/use-toast";
-import {
-  getPreferredWorkingHour,
-  updatePreferredWorkingHour,
-} from "@/lib/actions";
-import React, { useEffect, useState } from "react";
-
-type Props = {
-  day: string;
-  userId: string;
-};
-const EditPreferredWorkingHourForm = ({ day, userId }: Props) => {
+import { getTask, updateTask } from "@/lib/actions";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+const EditTaskForm = ({ taskId }: { taskId: string }) => {
+  const { data } = useSession();
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
+  const [date, setDate] = useState("");
+  const [description, setDescription] = useState("");
   const [formLoading, setFormLoading] = useState(false);
 
   const setFormData = async () => {
     setFormLoading(true);
-    const data = await getPreferredWorkingHour(day, userId);
-    setEndTime(data.endTime);
-    setStartTime(data.startTime);
+    const { task } = await getTask(taskId, data?.user.id as string);
+    setEndTime(task.endTime);
+    setStartTime(task.startTime);
+    setDescription(task.description);
+    setDate(task.date);
     setFormLoading(false);
   };
 
@@ -30,7 +28,7 @@ const EditPreferredWorkingHourForm = ({ day, userId }: Props) => {
 
   const handleSubmit = async (formData: FormData) => {
     try {
-      const res = await updatePreferredWorkingHour(formData, userId);
+      const res = await updateTask(taskId, formData);
       if (res) {
         toast({
           title: "successful",
@@ -59,21 +57,38 @@ const EditPreferredWorkingHourForm = ({ day, userId }: Props) => {
     <form className="space-y-4" action={handleSubmit}>
       <div>
         <label
-          htmlFor="day"
+          htmlFor="description"
           className="block text-sm font-medium leading-6 text-slate-200"
         >
-          Day
+          Description
         </label>
         <div className="mt-1">
-          <input
-            name="day"
+          <textarea
+            name="description"
+            rows={5}
             required
-            value={day}
-            className="block w-full rounded-md border-0 py-1.5 text-slate-950 shadow-sm ring-1 ring-inset ring-slate-950 placeholder:text-slate-950 focus:ring-2 focus:ring-inset focus:ring-yellow-500 sm:text-sm sm:leading-6 pl-2"
+            className="block w-full rounded-md border-0 py-1.5 text-slate-950 shadow-sm ring-1 ring-inset ring-slate-950 placeholder:text-slate-950 focus:ring-2 focus:ring-inset focus:ring-yellow-500 sm:text-sm sm:leading-6"
+            defaultValue={description}
           />
         </div>
       </div>
-
+      <div>
+        <label
+          htmlFor="date"
+          className="block text-sm font-medium leading-6 text-slate-200"
+        >
+          Date
+        </label>
+        <div className="mt-1">
+          <input
+            name="date"
+            type="date"
+            required
+            className="block w-full rounded-md border-0 py-1.5 text-slate-950 shadow-sm ring-1 ring-inset ring-slate-950 placeholder:text-slate-950 focus:ring-2 focus:ring-inset focus:ring-yellow-500 sm:text-sm sm:leading-6"
+            value={date}
+          />
+        </div>
+      </div>
       <div>
         <label
           htmlFor="startTime"
@@ -86,8 +101,8 @@ const EditPreferredWorkingHourForm = ({ day, userId }: Props) => {
             name="startTime"
             type="time"
             required
-            defaultValue={startTime}
             className="block w-full rounded-md border-0 py-1.5 text-slate-950 shadow-sm ring-1 ring-inset ring-slate-950 placeholder:text-slate-950 focus:ring-2 focus:ring-inset focus:ring-yellow-500 sm:text-sm sm:leading-6"
+            defaultValue={startTime}
           />
         </div>
       </div>
@@ -100,11 +115,11 @@ const EditPreferredWorkingHourForm = ({ day, userId }: Props) => {
         </label>
         <div className="mt-1">
           <input
-            defaultValue={endTime}
             name="endTime"
             type="time"
             required
             className="block w-full rounded-md border-0 py-1.5 text-slate-950 shadow-sm ring-1 ring-inset ring-slate-950 placeholder:text-slate-950 focus:ring-2 focus:ring-inset focus:ring-yellow-500 sm:text-sm sm:leading-6"
+            defaultValue={endTime}
           />
         </div>
       </div>
@@ -120,4 +135,4 @@ const EditPreferredWorkingHourForm = ({ day, userId }: Props) => {
   );
 };
 
-export default EditPreferredWorkingHourForm;
+export default EditTaskForm;
