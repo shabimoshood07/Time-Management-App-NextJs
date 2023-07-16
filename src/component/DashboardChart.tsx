@@ -37,7 +37,7 @@ type Tasks = {
 const DashboardChart = ({ tasks }: { tasks: Tasks[] }) => {
   const getBarData = (): number[] => {
     const days = tasks.map((task) => task.day) as (string | undefined)[];
-    const uniqueDays = [...new Set(days)] as string[];
+    const uniqueDays = Array.from(new Set(days));
     let dataArray = [];
     for (let index = 0; index < uniqueDays.length; index++) {
       let totalDuration = 0;
@@ -52,9 +52,9 @@ const DashboardChart = ({ tasks }: { tasks: Tasks[] }) => {
     return dataArray;
   };
 
-  const getBarLabels = (): string[] => {
+  const getBarLabels = (): (string | undefined)[] => {
     const days = tasks.map((task) => task.day);
-    const uniqueDays = [...new Set(days)];
+    const uniqueDays = Array.from(new Set(days));
     return uniqueDays;
   };
 
