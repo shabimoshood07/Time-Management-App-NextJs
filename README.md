@@ -14,18 +14,6 @@ Project is created with:
 * typescript: 5.1
 * shadcn/ui
 
-
-
-
-
-
-
-
-
-
-
-
-
 ## Getting Started
 
 First, run the development server:
