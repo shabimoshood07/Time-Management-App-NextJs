@@ -26,7 +26,7 @@ export function DataTablePagination<TData>({
     <div className="flex items-center justify-between px-2 mb-4">
       <div className="flex items-center space-x-6 lg:space-x-8">
         <div className="flex items-center space-x-2">
-          <p className="text-sm font-medium">Rows per page</p>
+          <p className="text-sm font-medium">Rows/page</p>
           <Select
             value={`${table.getState().pagination.pageSize}`}
             onValueChange={(value: any) => {
@@ -36,9 +36,9 @@ export function DataTablePagination<TData>({
             <SelectTrigger className="h-8 w-[70px]">
               <SelectValue placeholder={table.getState().pagination.pageSize} />
             </SelectTrigger>
-            <SelectContent side="top">
+            <SelectContent side="top" className="bg-slate-950">
               {[10, 20, 30, 40, 50].map((pageSize) => (
-                <SelectItem key={pageSize} value={`${pageSize}`}>
+                <SelectItem key={pageSize} value={`${pageSize}`} className="text-slate-200">
                   {pageSize}
                 </SelectItem>
               ))}
@@ -57,7 +57,7 @@ export function DataTablePagination<TData>({
             disabled={!table.getCanPreviousPage()}
           >
             <span className="sr-only">Go to first page</span>
-            <DoubleArrowLeftIcon className="h-4 w-4" />
+            <DoubleArrowLeftIcon className="h-8 w-8" />
           </Button>
           <Button
             variant="outline"
@@ -66,7 +66,7 @@ export function DataTablePagination<TData>({
             disabled={!table.getCanPreviousPage()}
           >
             <span className="sr-only">Go to previous page</span>
-            <ChevronLeftIcon className="h-4 w-4" />
+            <ChevronLeftIcon className="h-8 w-8 " />
           </Button>
           <Button
             variant="outline"
@@ -75,7 +75,7 @@ export function DataTablePagination<TData>({
             disabled={!table.getCanNextPage()}
           >
             <span className="sr-only">Go to next page</span>
-            <ChevronRightIcon className="h-4 w-4" />
+            <ChevronRightIcon className="h-8 w-8 " />
           </Button>
           <Button
             variant="outline"
@@ -84,7 +84,7 @@ export function DataTablePagination<TData>({
             disabled={!table.getCanNextPage()}
           >
             <span className="sr-only">Go to last page</span>
-            <DoubleArrowRightIcon className="h-4 w-4" />
+            <DoubleArrowRightIcon className="h-8 w-8" />
           </Button>
         </div>
       </div>

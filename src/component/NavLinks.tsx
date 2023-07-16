@@ -64,7 +64,10 @@ const NavLinks = ({ session }: any) => {
                 />
               )}
             </Link>
-            <button className="btn !mt-4 !text-red-600 font-semibold !text-xl hover:!text-yellow-500 duration-500"  onClick={() => signOut()}>
+            <button
+              className="btn !mt-4 !text-red-600 font-semibold !text-xl hover:!text-yellow-500 duration-500"
+              onClick={() => signOut()}
+            >
               Log out
             </button>
           </>
@@ -74,12 +77,12 @@ const NavLinks = ({ session }: any) => {
       {/* desktop nav */}
       <div className="hidden sm:flex items-center gap-3">
         {!session ? (
-          <button
-            onClick={() => signIn()}
+          <Link
+            href="/auth"
             className="btn !bg-slate-200 !text-slate-950 !font-bold w-[180px] hover:!bg-yellow-500 duration-500 text-center"
           >
             Sign up
-          </button>
+          </Link>
         ) : (
           <>
             {session.user.image ? (
@@ -97,7 +100,7 @@ const NavLinks = ({ session }: any) => {
               </Link>
             ) : (
               <Link
-              href="/profile/dashboard"
+                href="/profile/dashboard"
                 className="text-yellow-500 text-xl font-semibold"
               >
                 Profile

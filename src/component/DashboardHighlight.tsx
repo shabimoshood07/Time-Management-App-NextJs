@@ -52,7 +52,7 @@ const DashboardHighlight = async ({ tasks }: { tasks: Tasks[] }) => {
         </svg>
 
         <h1 className="text-xl font-bold text-slate-200 tracking-tighter">
-          {tasks.length} days
+          {tasks.length} {tasks.length > 1 ? "days" : "day"}
         </h1>
         <h1 className="tracking-tighter text-center text-slate-200">
           Total work days
@@ -93,10 +93,13 @@ const DashboardHighlight = async ({ tasks }: { tasks: Tasks[] }) => {
           />
         </svg>
         <h1 className="text-xl font-bold text-slate-200 tracking-tighter">
-          Hr
+          {tasks.length !== 0
+            ? ((100 * duration) / (tasks.length * 24)).toFixed(2)
+            : 0}
+          %
         </h1>
         <h1 className="tracking-tighter text-center text-slate-200">
-          Highest work duration
+          Perc. working hour
         </h1>
       </div>
     </div>

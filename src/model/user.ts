@@ -4,9 +4,12 @@ import * as bcrypt from "bcryptjs";
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
-    require: [true, "please provide email"],
-    match:
+    required: [true, "please provide email"],
+    match: [
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+      "Invalid Email",
+    ],
+    unique: true,
   },
   name: {
     type: String,
@@ -26,8 +29,11 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre("save", async function (this: any) {
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
+  if (this.password) {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+  }
+  return;
 });
 
 const User = models.User || mongoose.model("User", userSchema);

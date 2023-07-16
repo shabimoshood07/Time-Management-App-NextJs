@@ -28,7 +28,9 @@ export const addTask = async (formdata: FormData) => {
 
     var startDate = new Date("1970-01-01T" + startTime);
     var endDate = new Date("1970-01-01T" + endTime);
-    if (endDate < startDate) {
+    console.log(endDate == startDate);
+
+    if (endDate < startDate || endTime == startTime) {
       endDate.setDate(endDate.getDate() + 1);
     }
     var duration = (Number(endDate) - Number(startDate)) as number;
@@ -59,6 +61,14 @@ export const updateTask = async (taskId: string, formdata: FormData) => {
     const date = formdata.get("date");
     const startTime = formdata.get("startTime");
     const endTime = formdata.get("endTime");
+    var startDate = new Date("1970-01-01T" + startTime);
+    var endDate = new Date("1970-01-01T" + endTime);
+    if (endDate < startDate) {
+      endDate.setDate(endDate.getDate() + 1);
+    }
+
+    var duration = (Number(endDate) - Number(startDate)) as number;
+    var durationInHours = duration / (1000 * 60 * 60);
 
     const task = await Task.findOneAndUpdate(
       { _id: taskId },
@@ -67,10 +77,11 @@ export const updateTask = async (taskId: string, formdata: FormData) => {
         date,
         startTime,
         endTime,
+        duration: durationInHours,
       }
     );
-    revalidatePath("/showtask")
-    return JSON.parse(JSON.stringify({ message: "Task updated" }));
+    revalidatePath("/showtask");
+    return JSON.parse(JSON.stringify({ message: "Task updated !!" }));
   } catch (error: any) {
     throw new Error("Something went wrong");
   }
@@ -108,6 +119,8 @@ export const addPreferredWorkingHour = async (
     if (endDate < startDate) {
       throw new Error("End time must be after start time");
     }
+    var duration = (Number(endDate) - Number(startDate)) as number;
+    var durationInHours = (duration / (1000 * 60 * 60)).toFixed(2);
 
     await connectDB();
     const user = await User.findOne({ _id: userId });
@@ -136,7 +149,7 @@ export const addPreferredWorkingHour = async (
       );
     }
 
-    const data = { day, startTime, endTime };
+    const data = { day, startTime, endTime, duration: durationInHours };
 
     await User.findOneAndUpdate(
       { _id: userId },
@@ -147,11 +160,6 @@ export const addPreferredWorkingHour = async (
       JSON.stringify({ message: "Settings added successfully" })
     );
   } catch (error: any) {
-    // throw new Error(
-    //   JSON.parse(JSON.stringify(error.message || "Something went wrong"))
-    // );
-
-    // return new Error(error);
     throw new Error(error.message || "Something went wrong");
   }
 };

@@ -1,4 +1,5 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import DashboardChart from "@/component/DashboardChart";
 import DashboardHighlight from "@/component/DashboardHighlight";
 import ProfilePageHeading from "@/component/ProfilePageHeading";
 import Task from "@/model/task";
@@ -38,6 +39,7 @@ const Dashboard = async () => {
           Dashboard
         </h1>
         <DashboardHighlight tasks={tasks} />
+        <DashboardChart tasks={JSON.parse(JSON.stringify(tasks))} />
       </div>
     </div>
   );

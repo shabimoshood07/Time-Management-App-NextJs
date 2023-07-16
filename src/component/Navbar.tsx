@@ -20,9 +20,7 @@ const Navbar = async (): Promise<JSX.Element> => {
         >
           TMA
         </Link>
-        <Suspense fallback={<h1>Loading...</h1>}>
-          <NavLinks session={parsed} />
-        </Suspense>
+        <NavLinks session={parsed} />
       </div>
     </nav>
   );

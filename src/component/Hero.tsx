@@ -20,7 +20,7 @@ const Hero = ({ session }: { session: Session }) => {
           </>
         ) : (
           <Link href="auth" className="btn !w-[95%] max-w-[600px] text-center !mt-10 !font-semibold text-xl lg:text-sxl md:!py-4">
-            Sign In
+            Signup/Signin
           </Link>
         )}
       </div>
