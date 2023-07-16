@@ -1,4 +1,30 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Table of contents
+* [General info](#general-info)
+* [Technologies](#technologies)
+* [Getting Started](#getting-started)
+
+## General info
+The Time Management App is designed to assist individuals in monitoring and organizing their daily tasks effectively. With this app, users can record detailed information about their activities, including descriptions, start and end times, and durations. Additionally, users have the flexibility to add, edit, and delete tasks as needed. Furthermore, the app allows users to set their preferred working hours for each day, ensuring they can easily align their schedules. To provide a comprehensive overview of time usage, the app features a user-friendly dashboard that displays a summary of the tasks and how time is allocated throughout the day.
+	
+## Technologies
+Project is created with:
+* next: 13.4
+* next-auth:4.22
+* mongoose:7.3
+* typescript: 5.1
+* shadcn/ui
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Getting Started
 
@@ -18,17 +44,3 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
